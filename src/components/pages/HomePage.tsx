@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Button } from '../ui/button';
 import { Card, CardContent } from '../ui/card';
-import { Clock, Star, Ticket, MapPin } from 'lucide-react';
+import { Clock, Star, Ticket, MapPin, ArrowRight } from 'lucide-react'; // Đã thêm ArrowRight
 import { ImageWithFallback } from '../figma/ImageWithFallback';
 import { Skeleton } from '../ui/skeleton';
 import { useNavigate } from 'react-router-dom';
@@ -13,10 +13,6 @@ interface Movie {
   rating: number;
   duration_minutes: number;
   poster_url: string;
-}
-
-interface HomePageProps {
-  onNavigate: (page: string, data?: any) => void;
 }
 
 // SỬA LỖI: Xóa prop onNavigate
@@ -46,36 +42,65 @@ export function HomePage() {
     navigate(`/movie-detail/${movieId}`);
   };
 
+  // Dữ liệu cho phần Tin Tức & Ưu Đãi (Mới thêm vào)
+  const promotions = [
+    {
+      id: 1,
+      titleHeader: "THỨ 4 VUI VẺ",
+      titleDetail: "Thứ 4 Vui Vẻ - Vé Chỉ 50K",
+      desc: "Áp dụng cho tất cả các rạp CGV trên toàn quốc vào thứ 4 hàng tuần.",
+      headerColor: "bg-[#254eda]", // Xanh đậm
+      btnLink: "/promotions"
+    },
+    {
+      id: 2,
+      titleHeader: "THÀNH VIÊN U22",
+      titleDetail: "Thành Viên U22",
+      desc: "Giá vé ưu đãi đặc biệt dành cho học sinh, sinh viên dưới 22 tuổi.",
+      headerColor: "bg-[#7134bc]", // Tím
+      btnLink: "/promotions"
+    },
+    {
+      id: 3,
+      titleHeader: "CGV CULTUREPLEX",
+      titleDetail: "CGV Cultureplex",
+      desc: "Trải nghiệm không gian văn hóa phức hợp đỉnh cao đầu tiên tại Việt Nam.",
+      headerColor: "bg-[#b42b1e]", // Đỏ cam
+      btnLink: "/events"
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-white">
-      {/* Hero Section */}
-      <section className="relative h-[600px] bg-gradient-to-b from-red-50 to-white">
-        <div className="absolute inset-0 opacity-20">
+      {/* === 1. HERO SECTION (Banner) === */}
+      <section className="relative h-[600px] bg-gray-900">
+        <div className="absolute inset-0 opacity-60">
           <ImageWithFallback
             src="https://images.unsplash.com/photo-1485700330317-57a99a571ecb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjaW5lbWElMjB0aGVhdGVyJTIwc2VhdHN8ZW58MXx8fHwxNzYwMjM2OTk3fDA&ixlib=rb-4.1.0&q=80&w=1080"
             alt="Rạp chiếu phim"
             className="w-full h-full object-cover"
           />
         </div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+        
         <div className="relative container mx-auto px-4 h-full flex items-center">
-          <div className="max-w-2xl">
-            <h2 className="text-5xl text-gray-900 mb-4">
-              Trải Nghiệm Điện Ảnh Chưa Từng Có
+          <div className="max-w-2xl text-white">
+            <h2 className="text-5xl md:text-7xl font-black text-white mb-6 leading-tight uppercase drop-shadow-2xl">
+              Trải Nghiệm Điện Ảnh <br/> <span className="text-red-600">Chưa Từng Có</span>
             </h2>
-            <p className="text-xl text-gray-700 mb-8">
-              Màn hình cao cấp, ghế ngồi sang trọng và những khoảnh khắc khó quên
+            <p className="text-xl text-gray-200 mb-8 font-light">
+              Màn hình cao cấp, âm thanh sống động và những khoảnh khắc khó quên tại CGV.
             </p>
             <div className="flex gap-4">
               <Button
-                onClick={() => navigate('/movies')} // SỬA LỖI: Dùng navigate
-                className="bg-red-600 hover:bg-red-700 text-white px-8 py-6 text-lg"
+                onClick={() => navigate('/movies')}
+                className="bg-red-600 hover:bg-red-700 text-white px-8 py-6 text-lg font-semibold shadow-lg hover:shadow-red-600/30 transition-all"
               >
                 Đặt Vé Ngay
               </Button>
               <Button
-                onClick={() => navigate('/showtimes')} // SỬA LỖI: Dùng navigate
-                variant="outline"
-                className="border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white px-8 py-6 text-lg"
+                onClick={() => navigate('/showtimes')}
+                className="bg-red-600 hover:bg-red-700 text-white px-8 py-6 text-lg font-semibold shadow-lg hover:shadow-red-600/30 transition-all"
               >
                 Xem Lịch Chiếu
               </Button>
